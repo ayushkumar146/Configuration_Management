@@ -1,13 +1,111 @@
 spring:
   application:
-    name: management
-  profiles:
-    active: dev
+     name: config       # config server ka url dedia h, config server jis repository se data laega wo bhi dia hua h, to ab config repo me to bht sare files honge, ab iss microservice ko kaise pta chale ki knse yaml se data lena h to, jis yaml se data lena h, uss yaml ka naam apne microservice se rakh do or vice-versa.
+
+#but if i want dev, or prod then i would have to change the names again>?
+  #ChatGPT said:
+  #
+  #Excellent question 🙌 — and this is exactly where profiles come in so you don’t have to keep renaming files again and again.
+  #
+  #🔑 Rule
+  #
+  #The naming pattern is:
+  #
+  #{application-name}.yaml             → default
+  #{application-name}-{profile}.yaml   → environment-specific (dev, prod, etc.)
+  #
+  #Example with your management microservice
+  #
+  #Your microservice name (from spring.application.name) is:
+  #
+  #spring:
+  #  application:
+  #    name: management
+  #
+  #
+  #So in GitHub repo, you create three files:
+  #
+  #1. Default (used if no profile is set)
+  #
+  #👉 management.yaml
+  #
+  #build:
+  #  id: 100
+  #  version: 1.0.0
+  #  name: "Default-Build"
+  #  type: "Default Build"
+  #
+  #2. Development
+  #
+  #👉 management-dev.yaml
+  #
+  #build:
+  #  id: 101
+  #  version: 1.2.3
+  #  name: "Dev-Build"
+  #  type: "Development Build"
+  #
+  #3. Production
+  #
+  #👉 management-prod.yaml
+  #
+  #build:
+  #  id: 200
+  #  version: 2.0.0
+  #  name: "Prod-Build"
+  #  type: "Production Build"
+  #
+  #🚀 How your microservice chooses which one to use
+  #
+  #In your microservice’s own application.yaml:
+  #
+  #spring:
+  #  application:
+  #    name: management   # Matches "management" in repo
+  #  profiles:
+  #    active: dev        # Can be dev / prod / default
+  #  config:
+  #    import: configserver:http://localhost:8083
+  #
+  #
+  #If active: dev → it loads management-dev.yaml
+  #
+  #If active: prod → it loads management-prod.yaml
+  #
+  #If no profile set → it falls back to management.yaml
+  #
+  #🔗 URLs you can test
+  #
+  #Default → http://localhost:8083/management/default
+  #
+  #Dev → http://localhost:8083/management/dev
+  #
+  #Prod → http://localhost:8083/management/prod
+  #
+  #✅ So you don’t need to rename files again and again.
+  #You just:
+  #
+  #Fix the base name = spring.application.name (management).
+  #
+  #Add different files with suffix -dev, -prod in GitHub.
+  #
+  #Switch profiles (spring.profiles.active) when you want to change environments.
+  config: # This is Spring Boot's section for config settings
+    import: configserver:http://localhost:8083
+      # "import" means → Go and fetch extra settings from somewhere
+      # "configserver:" tells Spring → the source is a CONFIG SERVER, configserver as it is likhna hota h.
+      # "http://localhost:8083" is the address where your Config Server runs
+    # So basically: "Hey app, before you start, go ask the Config Server
+    # at port 8083 for your real settings (like database, port, secrets)."
+
 # the above tells which application-{required},yaml file to nun
 
 server:
  port: 8081
 # i have not given space before 8081, and that was the error, everything should be precise
+
+
+
 
 #
 #build:
