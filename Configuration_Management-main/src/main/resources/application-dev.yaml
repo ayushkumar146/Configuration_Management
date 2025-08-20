@@ -1,0 +1,67 @@
+server:
+  port:8082
+
+
+build:
+  id: 101
+  version: 1.2.3
+  name: "Dev-Production-Build"
+  type: "Development Build"
+
+
+
+#  This means:
+#When you run the app in dev profile, Spring Boot will load this info.
+#So the app “knows” → Hey! I’m running build 101, version 1.2.3, which is a development build.
+
+#Good question 👍
+#
+#Not always **only documentation** — it depends on how you use it 👇
+#
+#---
+#
+#### 1. 📖 If you never use it in code
+#
+#Then yes, it’s just for **documentation**.
+#It just “sits” in the config file and doesn’t affect anything.
+#Like writing your name on a notebook 📒.
+#
+#---
+#
+#### 2. ⚡ If you use it in your code
+#
+#You can **inject these values** into your Java app and use them:
+#
+#```java
+#@Value("${build.id}")
+#private String buildId;
+#
+#@Value("${build.version}")
+#private String buildVersion;
+#```
+#
+#Then, when your app starts, you could log it:
+#
+#```java
+#System.out.println("Running Build ID: " + buildId + ", Version: " + buildVersion);
+#```
+#
+#👉 This way, if something breaks in production, you instantly know **which build** was running.
+#
+#---
+#
+#### 3. ✅ Why this is useful in microservices
+#
+#* In a **big system with many services**, you want to know **which version** of each service is running.
+#* If service A talks to service B, and B is outdated, you can debug quickly.
+#* Helps in **CI/CD pipelines** → your build system (like Jenkins/GitHub Actions) can automatically update this info.
+#
+#---
+#
+#🔑 **Summary:**
+#
+#* If unused → it’s just documentation.
+#* If injected/logged → it becomes **very useful for debugging, monitoring, and version tracking** in microservices.
+#
+#---
+

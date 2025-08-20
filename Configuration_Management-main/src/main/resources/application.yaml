@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: management
+  profiles:
+    active: dev
+# the above tells which application-{required},yaml file to nun
+
+server:
+ port: 8081
+# i have not given space before 8081, and that was the error, everything should be precise
+
+#
+#build:
+# id: 122
+# version: 2.2.2
+# name: "Default-Build"
+# type: "Default Build"
