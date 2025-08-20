@@ -1,0 +1,17 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: config_server
+
+  cloud: # "cloud" is the main box for Spring Cloud settings
+    config: # inside "cloud", we have "config" ? means we are configuring the Config Server
+      server: # inside "config", we say this app will act as a "server"
+        git: # we tell the server: "Go look for config files in a Git repo"
+          uri: https://github.com/ayushkumar146/app-configuration
+            # "uri" is the address of that Git repo where config files live
+            # Your Config Server will go to this GitHub link
+          # and read the configuration (like database URLs, usernames, etc.)
+          # for your microservices
+
