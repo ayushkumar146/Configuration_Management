@@ -91,12 +91,13 @@ spring:
   #
   #Switch profiles (spring.profiles.active) when you want to change environments.
   config: # This is Spring Boot's section for config settings
-    import: configserver:http://localhost:8083
+    import: optional:configserver:http://localhost:8083
       # "import" means → Go and fetch extra settings from somewhere
       # "configserver:" tells Spring → the source is a CONFIG SERVER, configserver as it is likhna hota h.
       # "http://localhost:8083" is the address where your Config Server runs
     # So basically: "Hey app, before you start, go ask the Config Server
     # at port 8083 for your real settings (like database, port, secrets)."
+    # optional is, if configserver is not be located or malfunctioned, then it will take the default Build properties mentioned.1
 
 # the above tells which application-{required},yaml file to nun
 
@@ -108,8 +109,8 @@ server:
 
 
 #
-#build:
-# id: 122
-# version: 2.2.2
-# name: "Default-Build"
-# type: "Default Build"
+build:
+ id: 122
+ version: 2.2.2
+ name: "Default-Build"
+ type: "Default Build"
