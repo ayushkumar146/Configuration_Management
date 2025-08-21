@@ -91,8 +91,9 @@ spring:
   #
   #Switch profiles (spring.profiles.active) when you want to change environments.
   config: # This is Spring Boot's section for config settings
-    import: optional:configserver:http://localhost:8083
-      # "import" means → Go and fetch extra settings from somewhere
+#    import: optional:configserver:http://localhost:8083
+     import: configserver:http://localhost:8083
+    # "import" means → Go and fetch extra settings from somewhere
       # "configserver:" tells Spring → the source is a CONFIG SERVER, configserver as it is likhna hota h.
       # "http://localhost:8083" is the address where your Config Server runs
     # So basically: "Hey app, before you start, go ask the Config Server
@@ -114,3 +115,11 @@ build:
  version: 2.2.2
  name: "Default-Build"
  type: "Default Build"
+
+management:   # 🛠️ All the settings for Spring Boot Actuator (the "remote control panel").
+  endpoints:  # 🎛️ These are like different buttons on the remote control (health, info, refresh, etc).
+    web:      # 🌐 We are talking about the buttons you can press using the web (HTTP calls).
+      exposure:   # 🔓 Which buttons should be visible (open) for you to press.
+        include: refresh  # ✅ Only show the "refresh" button.
+          # This means we can press the /actuator/refresh endpoint
+        # to reload new config values without restarting the app.

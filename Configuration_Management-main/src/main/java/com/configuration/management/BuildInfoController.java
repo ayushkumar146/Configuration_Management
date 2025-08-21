@@ -140,10 +140,13 @@
 //--------------------by using @configuration annotation----------------------
 package com.configuration.management;
 
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RefreshScope
+//added to read config server configuration, without restarting the app.
 public class BuildInfoController {
 
     private final BuildConfig buildConfig;

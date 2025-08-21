@@ -10,8 +10,17 @@ spring:
       server: # inside "config", we say this app will act as a "server"
         git: # we tell the server: "Go look for config files in a Git repo"
           uri: https://github.com/ayushkumar146/app-configuration
+          username: ayushkumar146
+          password: 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
+# git me generatre token, me permissions sare dediye the read and write to kaam krgya.
+
             # "uri" is the address of that Git repo where config files live
             # Your Config Server will go to this GitHub link
           # and read the configuration (like database URLs, usernames, etc.)
           # for your microservices
 
+# till now, we have used public repository to fetch config details, but now we will se how to fetch data from the private repository.
+#1) make you app-configuration private:-
+#2) get token from github
+#3) set environment variables in config server, with GIT_USER and GIT_TOKEN
+#4) add two more properties above, username and password.
