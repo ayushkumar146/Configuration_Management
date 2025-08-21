@@ -10,8 +10,8 @@ spring:
       server: # inside "config", we say this app will act as a "server"
         git: # we tell the server: "Go look for config files in a Git repo"
           uri: https://github.com/ayushkumar146/app-configuration
-          username: ayushkumar146
-          password: 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
+#          username: ayushkumar146
+#          password: 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
 # git me generatre token, me permissions sare dediye the read and write to kaam krgya.
 
             # "uri" is the address of that Git repo where config files live
